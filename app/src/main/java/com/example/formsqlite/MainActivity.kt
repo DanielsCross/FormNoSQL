@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -72,7 +73,7 @@ fun App(){
     var coursedescription by remember { mutableStateOf("") }
     val context = LocalContext.current
     var dbHandler: DBHandler = DBHandler(context)
-
+    SimpleCenterAlignedTopAppBar()
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -173,6 +174,47 @@ fun App(){
             }
         }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SimpleCenterAlignedTopAppBar() { // Componente Top Bar
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
+                        "CREATE - NOSQL",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = { /* doSomething() */ }) {
+                        Icon(
+                            imageVector = Icons.Filled.Menu,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { /* doSomething() */ }) {
+                        Icon(
+                            imageVector = Icons.Filled.Person,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                }
+            )
+        },
+        content = { innerPadding ->
+            LazyColumn(
+                contentPadding = innerPadding,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+
+            }
+        }
+    )
+}
 
 
 @Preview(showBackground = true)
